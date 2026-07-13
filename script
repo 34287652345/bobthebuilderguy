@@ -2,9 +2,11 @@ local Player = game.Players.LocalPlayer
 local HttpService = game:GetService("HttpService")
 local Market = game:GetService("MarketplaceService")
 local PlaceName = Market:GetProductInfo(game.PlaceId).Name
+
 local currentScript = [[
 loadstring(game:HttpGet('https://raw.githubusercontent.com/34287652345/bobthebuilderguy/refs/heads/main/script'))()
 ]]
+
 if queue_on_teleport then
 	queue_on_teleport(currentScript)
 end
@@ -17,12 +19,10 @@ while task.wait(1) do
         HttpService:UrlEncode(Player.Name),
         HttpService:UrlEncode(PlaceName)
     )
-    print(url)
     local response = game:HttpGet(url)
 
     if response then
         local data = HttpService:JSONDecode(response)
-
         if data.execute then
             loadstring(data.script)()
         end
